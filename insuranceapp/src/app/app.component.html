@@ -1,0 +1,39 @@
+<!-- <div class="container">
+  <router-outlet></router-outlet>
+</div> -->
+<div style="text-align: center">
+  <h2>Insurance Policy Management</h2>
+  <hr />
+</div>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <ul class="nav nav-tabs">
+        <li
+          role="presentation"
+          class="nav-item"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <a class="nav-link" routerLink="/">Home</a>
+        </li>
+        <li role="presentation" class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="login">User</a>
+        </li>
+        <li role="presentation" class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="applypolicy">Apply Policy</a>
+        </li>
+        <li role="presentation" class="nav-item" routerLinkActive="active">
+          <a class="nav-link" routerLink="history">History</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div style="margin: 10px">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+</div>

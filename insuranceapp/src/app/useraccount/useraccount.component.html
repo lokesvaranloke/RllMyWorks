@@ -1,0 +1,168 @@
+<!-- <a class="btn btn-primary" routerLink="/useraccount/{id}">View Profile</a> -->
+<div class="container">
+    <table class="table table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>User Id</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phonenumber</th>
+                <th>Address</th>
+                <th>Policynumber</th>
+                <!-- <th>Password</th> -->
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr >
+                <td>{{data.userId}}</td> 
+                <td>{{data.name}}</td>
+                <td>{{data.email}}</td>
+                <td>{{data.phoneNum}}</td>
+                <td>{{data.address}}</td>
+                <td>{{data.policyNum}}</td>
+                <!-- <td>{{data.password}}</td> -->
+                <td>
+                    <button class="btn btn-outline-warning" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="onEdit(data)" >Update</button>&nbsp;&nbsp;&nbsp; 
+                    <button class="btn btn-outline-danger" type="button" (click)="onDeleteUser(data.userId)">Delete</button> 
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Update User</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="loginForm" style="color: rgb(120, 55, 5)">
+            <div class="row mb-2">
+            <div class="form-group">
+              <label for="userId">User Id</label>
+              <input
+                type="text"
+                id="userId"
+                class="form-control"
+                name="userId"
+                required
+                formControlName="userId"
+                [disabled]="true"
+              />
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input
+                type="text"
+                id="name"
+                class="form-control"
+                name="name"
+                required
+                formControlName="name"
+              />
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="form-group">
+              <label for="dob">Email</label>
+              <input
+                type="text"
+                id="email"
+                class="form-control"
+                name="email"
+                formControlName="email"
+                required
+              />
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="form-group">
+              <label for="phoneNum">Phonenumber</label>
+              <input
+                type="text"
+                id="phoneNum"
+                class="form-control"
+                name="phoneNum"
+                formControlName="phoneNum"
+                required
+              />
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="form-group">
+              <label for="address">Address</label>
+              <textarea
+                type="text"
+                id="address"
+                class="form-control"
+                name="address"
+                required
+                formControlName="address"
+              ></textarea>
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="form-group">
+              <label for="policyNum">Policynumber</label>
+              <input
+                type="text"
+                id="policyNum"
+                class="form-control"
+                name="policyNum"
+                required
+                formControlName="policyNum"
+                [disabled]="true"
+              />
+            </div>
+          </div>
+          <!-- <div class="row mb-2">
+            <div class="form-group">
+              <label for="policyNum">Password</label>
+              <input
+                type="text"
+                id="password"
+                class="form-control"
+                name="password"
+                required
+                formControlName="password"
+                [disabled]="true"
+              />
+            </div>
+          </div> -->
+        </form>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button
+            type="button"
+            (click)="updateUser()"
+            class="btn btn-primary"
+          >
+            Save changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
