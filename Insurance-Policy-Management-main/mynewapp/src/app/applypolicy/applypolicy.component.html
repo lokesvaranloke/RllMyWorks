@@ -1,0 +1,27 @@
+<div class="container">
+  <p>Apply Policy</p>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>User ID</th>
+        <th>Username</th>
+        <th>Policy Type</th>
+        <th>Apply Policy</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of policies">
+        <td>{{ p.userId }}</td>
+        <td>{{ p.name }}</td>
+        <td>{{ p.policytype }}</td>
+        <td>
+          <input
+            type="button"
+            value="apply"
+            (click)="applyPolicy(p.policyNum)"
+          />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

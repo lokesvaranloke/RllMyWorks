@@ -88,5 +88,4 @@ export class UseraccountComponent implements OnInit {
       this.route.navigate(['login']);
     })
   }
-
 }

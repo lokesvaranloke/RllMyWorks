@@ -1,0 +1,21 @@
+<div class="container">
+  <h3>Delete Policy</h3>
+  <div *ngIf="flag">
+    <p>Add Details</p>
+    <form (ngSubmit)="updateDataFromDb()" *ngFor="let p of policies">
+      <label>Policy No.</label>
+      <input type="number" name="policyNum" [(ngModel)]="policyNum" /><br />
+      <label>Username</label>
+      <input type="text" name="name" [(ngModel)]="name" /><br />
+      <input
+        type="submit"
+        value="Delete"
+        (click)="deletePolicy(p.policyNum)"
+      /><br />
+      <input type="reset" value="reset" /><br />
+      <input type="submit" value="Update" routerLink="/updatepolicy" />
+    </form>
+    <br />
+    <span style="color: red">{{ storeMsg }}</span>
+  </div>
+</div>

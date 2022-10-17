@@ -1,0 +1,53 @@
+<div class="container">
+  <h3>Apply Policy</h3>
+  <div *ngIf="flag">
+    <p>Add Details</p>
+    <form (ngSubmit)="updateDataFromDb()">
+      <label>Policy No.</label>
+      <input type="number" name="policyNum" [(ngModel)]="policyNum" /><br />
+      <label>Username</label>
+      <input type="text" name="name" [(ngModel)]="name" /><br />
+      <label>email</label>
+      <input type="text" name="email" [(ngModel)]="email" /><br />
+      <label>address</label>
+      <input type="text" name="address" [(ngModel)]="address" /><br />
+      <label>Phone Number</label>
+      <input type="number" name="phoneNum" [(ngModel)]="phoneNum" /><br />
+
+      <label for="insurances">Choose a Policy Type: </label>
+      <select id="insurances">
+        <option
+          value="Vehicle Insurance"
+          name="policytype [(ngModel)]="
+          policytype
+        >
+          Vehicle Insurance
+        </option>
+        <br />
+        <option
+          value="Health Insurance"
+          name="policytype [(ngModel)]="
+          policytype
+        >
+          Health Insurance
+        </option>
+        <br />
+        <option
+          value="Life Insurance"
+          name="policytype [(ngModel)]="
+          policytype
+        >
+          Life Insurance
+        </option>
+        <br />
+      </select>
+      <input type="submit" value="Apply" /><br />
+      <input type="reset" value="reset" /><br />
+      <input type="submit" value="Delete" routerLink="/deletepolicy" /><span
+        ><input type="submit" value="Update" routerLink="/updatepolicy" /><br
+      /></span>
+    </form>
+    <br />
+    <span style="color: red">{{ storeMsg }}</span>
+  </div>
+</div>
