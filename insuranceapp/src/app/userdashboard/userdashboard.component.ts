@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ApiService } from '../services/api.service';
-import { UserDataModel } from './userdata.model';
+import { UserDataModel } from '../useraccount/userdata.model';
 
 @Component({
   selector: 'app-userdashboard',
@@ -28,7 +28,6 @@ export class UserdashboardComponent implements OnInit {
     this.routeSub=this.actroute.params.subscribe(params=>{
       this.userId = this.actroute.snapshot.params['userId'];
       console.log(this.userId);
-      console.log(this.routeSub);
     })
   }
 

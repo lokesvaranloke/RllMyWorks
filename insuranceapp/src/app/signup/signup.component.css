@@ -1,12 +1,12 @@
 .container{
-   height: 80vh;
+   height: 75vh;
    display: flex;
    justify-content: center;
    align-items: center;
 }
 .col-head{
     border-radius: 7px;
-    background-color: dimgrey;
+    background-color: #04AA6D;
     color: white;
  }
 

@@ -15,7 +15,9 @@ export class SignupComponent implements OnInit {
   
   constructor(private formBuilder: FormBuilder, private http: HttpClient, private route: Router) { }
 
-  backendurl="http://localhost:8080/insurance/user";
+  // backendurl="http://localhost:8080/insurance/user";
+
+  backendurl="http://localhost:8000/user";
 
   ngOnInit(): void {
     this.signupForm=this.formBuilder.group({

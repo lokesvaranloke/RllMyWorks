@@ -9,19 +9,19 @@
                 <th>Phonenumber</th>
                 <th>Address</th>
                 <th>Policynumber</th>
-                <!-- <th>Password</th> -->
+                <th>Password</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
             <tr >
-                <td>{{data.userId}}</td> 
+                <td>{{data.userId}}</td> <!-- it will be disabled-->
                 <td>{{data.name}}</td>
-                <td>{{data.email}}</td>
+                <td>{{data.email}}</td> <!-- it will be disabled-->
                 <td>{{data.phoneNum}}</td>
                 <td>{{data.address}}</td>
-                <td>{{data.policyNum}}</td>
-                <!-- <td>{{data.password}}</td> -->
+                <td>{{data.policyNum}}</td> <!-- it will be disabled-->
+                <td>{{data.password}}</td>
                 <td>
                     <button class="btn btn-outline-warning" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="onEdit(data)" >Update</button>&nbsp;&nbsp;&nbsp; 
                     <button class="btn btn-outline-danger" type="button" (click)="onDeleteUser(data.userId)">Delete</button> 
@@ -131,7 +131,7 @@
               />
             </div>
           </div>
-          <!-- <div class="row mb-2">
+          <div class="row mb-2">
             <div class="form-group">
               <label for="policyNum">Password</label>
               <input
@@ -144,7 +144,7 @@
                 [disabled]="true"
               />
             </div>
-          </div> -->
+          </div>
         </form>
         <div class="modal-footer">
           <button

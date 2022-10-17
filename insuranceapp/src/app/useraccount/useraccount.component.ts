@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ApiService } from '../services/api.service';
-import { UserDataModel } from '../userdashboard/userdata.model';
+import { UserDataModel } from './userdata.model';
 
 @Component({
   selector: 'app-useraccount',
@@ -16,7 +16,10 @@ export class UseraccountComponent implements OnInit {
   isDisabled=true;
   userModelObj: UserDataModel = new UserDataModel();
 
-  backendurl="http://localhost:8080/insurance/user";
+  // backendurl="http://localhost:8080/insurance/user";
+
+  backendurl="http://localhost:8000/user";
+  
   private routeSub: Subscription;
   public loginForm!:FormGroup;
 
@@ -29,16 +32,17 @@ export class UseraccountComponent implements OnInit {
     this.loginForm=this.formBuilder.group({
       userId:{value:'', disabled: this.isDisabled},
       name:[''],
-      email:[''],
+      email:{value:'', disabled: this.isDisabled},
       phoneNum:[''],
       address:[''],
       policyNum:{value:'', disabled: this.isDisabled},
-      password:{value:'', disabled: this.isDisabled}
+      password:['']
     })
 
     this.routeSub=this.actroute.params.subscribe(params=>{
       this.userId = this.actroute.snapshot.params['userId'];
       this.fetchUserById(this.userId);
+      console.log(this.userId);
     })
   }
 
@@ -51,7 +55,7 @@ export class UseraccountComponent implements OnInit {
 
   onEdit(data:any){
     this.userModelObj.userId=this.data.userId;
-    this.userModelObj.password=this.data.password;
+    this.userModelObj.email=this.data.email;
     this.userModelObj.policyNum=this.data.policyNum;
     this.loginForm.controls['userId'].setValue(data.userId);
     this.loginForm.controls['name'].setValue(data.name);
@@ -64,9 +68,9 @@ export class UseraccountComponent implements OnInit {
 
   updateUser(){
     this.userModelObj.name=this.loginForm.value.name;
-    this.userModelObj.email=this.loginForm.value.email;
     this.userModelObj.phoneNum=this.loginForm.value.phoneNum;
     this.userModelObj.address=this.loginForm.value.address;
+    this.userModelObj.password=this.loginForm.value.password;
 
     this.api.updateUser(this.userModelObj, this.userModelObj.userId)
     .subscribe(res=>{
@@ -81,7 +85,6 @@ export class UseraccountComponent implements OnInit {
   onDeleteUser(userId: number){
     this.http.delete(this.backendurl+"/"+userId).subscribe(res=>{
       alert("User Deleted...Logging Out..");
-      console.log("User Deleted :"+res);
       this.route.navigate(['login']);
     })
   }

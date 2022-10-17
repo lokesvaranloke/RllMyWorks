@@ -1,7 +1,7 @@
 <div class="container">
     <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
         <div class="row g-0">
-            <div class="col-head text-center p-2 mb-1">
+            <div class="col-head text-center p-1 ">
                 <span class="fs-3">Registration</span>
             </div>
         </div>
@@ -46,14 +46,14 @@
                 <input type="text" class="form-control" id="policyNum" placeholder="Policynumber" formControlName="policyNum" [disabled]="true">
             </div>
         </div>
-        <div class="row mt-2">
+        <div class="row mt-1">
             <div class="col">
                 <small class="text-muted">Already Have An Account ?</small><a class="loginlink" routerLink="/login">Login</a>
             </div>
         </div>
         <div class="row">
             <div class="col">
-                <button class="btn btn-primary w-100 mt-4" type="submit" [disabled]="!signupForm.valid">Register</button>
+                <button class="btn btn-primary w-100 mt-1" type="submit" [disabled]="!signupForm.valid">Register</button>
             </div>
         </div>
     </form>
