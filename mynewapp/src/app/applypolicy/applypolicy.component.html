@@ -1,0 +1,30 @@
+<!-- <a class="btn btn-primary" routerLink="/useraccount/{id}">View Profile</a> -->
+<div class="container">
+  <table class="table table-striped">
+    <thead class="table-dark">
+      <tr>
+        <th>User Id</th>
+        <th>Policy Id</th>
+        <th>Policy Type</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>{{ data.userId }}</td>
+        <td>{{ data.policyType }}</td>
+        <td>{{ data.policyNum }}</td>
+        <td>
+          <button
+            class="btn btn-outline-danger"
+            type="button"
+            (click)="onApplyPolicy()"
+          >
+            Apply
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<!-- Modal -->

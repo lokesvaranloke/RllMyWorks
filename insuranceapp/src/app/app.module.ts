@@ -10,12 +10,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserdashboardComponent } from './userdashboard/userdashboard.component';
 import { UseraccountComponent } from './useraccount/useraccount.component';
+import { AdminapproveComponent } from './adminapprove/adminapprove.component';
 
 const appRoutes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignupComponent},
   {path: 'userdashboard/:userId', component: UserdashboardComponent},
   {path: 'useraccount/:userId', component: UseraccountComponent},
+  {path: 'adminapprove', component: AdminapproveComponent},
 ];
 
 @NgModule({
@@ -24,7 +26,8 @@ const appRoutes: Routes = [
     SignupComponent,
     LoginComponent,
     UserdashboardComponent,
-    UseraccountComponent
+    UseraccountComponent,
+    AdminapproveComponent
   ],
   imports: [
     BrowserModule,

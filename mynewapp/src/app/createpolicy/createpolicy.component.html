@@ -1,0 +1,88 @@
+<div class="container">
+  <form [formGroup]="createPolicyForm" (ngSubmit)="onSubmit()">
+    <div class="row g-0">
+      <div class="col-head text-center p-1">
+        <span class="fs-3">Create Policy</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <label for="user_id" class="form-label"></label>
+        <input
+          type="text"
+          class="form-control"
+          id="user_id"
+          placeholder="User Id"
+          formControlName="userId"
+        />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <label for="policy_type" class="form-label"></label>
+        <textarea
+          type="text"
+          class="form-control"
+          id="policy_type"
+          placeholder="Policy Type"
+          formControlName="policyType"
+        ></textarea>
+        <span
+          style="color: red"
+          class="small"
+          *ngIf="
+            !createPolicyForm.get('policy_type').valid &&
+            createPolicyForm.get('policy_type').touched
+          "
+          ><small>*Please enter a valid policy type</small></span
+        >
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <label for="policy_num" class="form-label"></label>
+        <input
+          type="text"
+          class="form-control"
+          id="policy_num"
+          placeholder="Policynumber"
+          formControlName="policyNum"
+          [disabled]="true"
+        />
+        <span
+          style="color: red"
+          class="small"
+          *ngIf="
+            !createPolicyForm.get('policy_num').valid &&
+            createPolicyForm.get('policy_num').touched
+          "
+          ><small>*Please enter a 10 digit policy number</small></span
+        >
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <label for="approval" class="form-label"></label>
+        <input
+          type="number"
+          class="form-control"
+          id="approval"
+          placeholder="Approval"
+          formControlName="approval"
+          [disabled]="true"
+        />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <button
+          class="btn btn-primary w-100 mt-1"
+          type="submit"
+          [disabled]="!createPolicyForm.valid"
+        >
+          Create
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
