@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { viewCustomerCrud } from './viewcustomer.model';
 
 @Component({
   selector: 'app-viewcustomers',
@@ -9,20 +10,19 @@ import { Component, OnInit } from '@angular/core';
 export class ViewcustomersComponent implements OnInit {
 
   backendurl="http://localhost:8080/admin/user";
-  
-  data:any;
+
+  fetchedCustomer: viewCustomerCrud[] = [];
   
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-      this.fetchUser();
+      this.fetchCustomer();
     }   
 
-    fetchUser(){
-      this.http.get(this.backendurl)
-      .subscribe((res)=>{
-        this.data=res;
-        console.log(this.data);
+    fetchCustomer(){
+      this.http.get<any>(this.backendurl).subscribe((result:any)=>{
+        this.fetchedCustomer=result;
+        console.log("Customers:",this.fetchedCustomer);
       })
     }
   }

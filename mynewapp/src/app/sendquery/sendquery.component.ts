@@ -22,13 +22,14 @@ export class SendqueryComponent implements OnInit {
 
   ngOnInit(): void {
     this.queryForm=this.formBuilder.group({
-      userId:{value:'', disabled: this.isDisabled},
+      // userId:{value:'', disabled: this.isDisabled},
+      userId:['', Validators.required],
       query:['', Validators.required]
     })
 
     this.routeSub=this.actroute.params.subscribe(params=>{
       this.userId = this.actroute.snapshot.params['userId'];
-      console.log(this.userId);
+      // console.log(this.userId);
     })
     }
 
@@ -37,8 +38,9 @@ export class SendqueryComponent implements OnInit {
   }
 
   sendQuery(userId:any){
-    this.http.post<any>(this.backendurl+"/"+userId,this.queryForm.value)
+    this.http.post<any>(this.backendurl+"/"+this.userId,this.queryForm.value)
     .subscribe(res=>{
+      console.log(this.userId);
       console.log(this.queryForm.value);
       
       alert("Query Sent Successfully");

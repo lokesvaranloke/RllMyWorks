@@ -16,16 +16,234 @@
                 <td>{{policy.policyType}}</td>
                 <td>{{policy.policyNum}}</td> 
                 <td>{{policy.userId}}</td>
-                <!-- <td>{{policy.approval}}</td> -->
-                <td [ngModel]>{{approval}}</td>
+                <td>{{policy.approval}}</td>
                 <td>
-                    <!-- <button type="button" class="btn btn-outline-info" (click)="onApprove(policy)" >Approve</button>
-                    <button type="button" class="btn btn-outline-warning" (click)="onDisapprove(policy)">Disapprove</button> -->
-
-                    <button type="button" class="btn btn-outline-info" (click)="onApprove(policy)" >Approve</button>
-                    <button type="button" class="btn btn-outline-warning" (click)="onDisapprove()">Disapprove</button>
+                    <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#approveModal" (click)="onApprove(policy)" >Approve</button>&nbsp;&nbsp;&nbsp;
+                    <button type="button" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#disapproveModel" (click)="onDisapprove(policy)">Disapprove</button>
                 </td>
             </tr>
         </tbody>
     </table>
+</div>
+
+<!--Approve Modal -->
+<div
+  class="modal fade"
+  id="approveModal"
+  tabindex="-1"
+  aria-labelledby="approveModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="approveModalLabel">Approve Policy</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="policyForm" style="color: rgb(120, 55, 5)">
+          <div class="row mb-2">
+            <div class="form-group">
+              <label for="policyId">Policy Id</label>
+              <input
+                type="text"
+                id="policyId"
+                class="form-control"
+                name="policyId"
+                required
+                formControlName="policyId"
+                [disabled]="true"
+              />
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="form-group">
+              <label for="userId">User Id</label>
+              <input
+                type="text"
+                id="userId"
+                class="form-control"
+                name="userId"
+                required
+                formControlName="userId"
+                [disabled]="true"
+              />
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="form-group">
+              <label for="policyType">Policy Type</label>
+              <input
+                type="text"
+                id="policyType"
+                class="form-control"
+                name="policyType"
+                required
+                formControlName="policyType"
+              />
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="form-group">
+              <label for="policyNum">Policy Number</label>
+              <input
+                type="text"
+                id="policyNum"
+                class="form-control"
+                name="policyNum"
+                formControlName="policyNum"
+                required
+              />
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="form-group">
+              <label for="approval">Approval</label>
+              <input
+                type="text"
+                id="approval"
+                class="form-control"
+                name="approval"
+                required
+                formControlName="approval"
+                [disabled]="true"
+              />
+            </div>
+          </div>
+        </form>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button
+            type="button"
+            (click)="approve()"
+            class="btn btn-primary"
+          >
+            Approve Policy
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Disapprove Modal -->
+<div
+  class="modal fade"
+  id="disapproveModel"
+  tabindex="-1"
+  aria-labelledby="disapproveModelLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="disapproveModelLabel">Disapprove Policy</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="policyForm" style="color: rgb(120, 55, 5)">
+          <div class="row mb-2">
+            <div class="form-group">
+              <label for="policyId">Policy Id</label>
+              <input
+                type="text"
+                id="policyId"
+                class="form-control"
+                name="policyId"
+                required
+                formControlName="policyId"
+                [disabled]="true"
+              />
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="form-group">
+              <label for="userId">User Id</label>
+              <input
+                type="text"
+                id="userId"
+                class="form-control"
+                name="userId"
+                required
+                formControlName="userId"
+                [disabled]="true"
+              />
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="form-group">
+              <label for="policyType">Policy Type</label>
+              <input
+                type="text"
+                id="policyType"
+                class="form-control"
+                name="policyType"
+                required
+                formControlName="policyType"
+              />
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="form-group">
+              <label for="policyNum">Policy Number</label>
+              <input
+                type="text"
+                id="policyNum"
+                class="form-control"
+                name="policyNum"
+                formControlName="policyNum"
+                required
+              />
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="form-group">
+              <label for="approval">Approval</label>
+              <input
+                type="text"
+                id="approval"
+                class="form-control"
+                name="approval"
+                required
+                formControlName="approval"
+                [disabled]="true"
+              />
+            </div>
+          </div>
+        </form>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button
+            type="button"
+            (click)="disApprove()"
+            class="btn btn-primary"
+          >
+            Disapprove Policy
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

@@ -3,23 +3,26 @@
   <table class="table table-striped">
     <thead class="table-dark">
       <tr>
-        <th>User Id</th>
         <th>Query Id</th>
+        <th>User Id</th>
         <th>Query</th>
+        <th>Answer</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>{{ data.queryId }}</td>
-        <td>{{ data.userId }}</td>
-        <td>{{ data.query }}</td>
+      <tr *ngFor="let query of fetchedQuery">
+        <td>{{ query.queryId }}</td>
+        <td>{{ query.userId }}</td>
+        <td>{{ query.query }}</td>
+        <td>{{ query.answer }}</td>
         <td>
           <button
-            class="btn btn-outline-warning"
+            class="btn btn-outline-info"
             type="button"
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
-            (click)="onEdit(data)"
+            (click)="onEdit(query)"
           >
             Answer
           </button>
@@ -28,9 +31,10 @@
     </tbody>
   </table>
 </div>
+
 <!-- Modal -->
 <div
-  class="btn-primary"
+  class="modal fade"
   id="exampleModal"
   tabindex="-1"
   aria-labelledby="exampleModalLabel"
@@ -39,7 +43,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Answer Queries</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Answer Query</h5>
         <button
           type="button"
           class="btn-close"
@@ -48,7 +52,21 @@
         ></button>
       </div>
       <div class="modal-body">
-        <form [formGroup]="policyForm" style="color: rgb(120, 55, 5)">
+        <form [formGroup]="QueryForm" style="color: rgb(120, 55, 5)">
+          <div class="row mb-2">
+            <div class="form-group">
+              <label for="queryId">Query Id</label>
+              <input
+                type="text"
+                id="queryId"
+                class="form-control"
+                name="queryId"
+                required
+                formControlName="queryId"
+                [disabled]="true"
+              />
+            </div>
+          </div>
           <div class="row mb-2">
             <div class="form-group">
               <label for="userId">User Id</label>
@@ -76,6 +94,19 @@
               ></textarea>
             </div>
           </div>
+          <div class="row mb-2">
+            <div class="form-group">
+              <label for="answer">Answer</label>
+              <textarea
+                type="text"
+                id="answer"
+                class="form-control"
+                name="answer"
+                formControlName="answer"
+                required
+              ></textarea>
+            </div>
+          </div>
         </form>
         <div class="modal-footer">
           <button
@@ -85,7 +116,11 @@
           >
             Close
           </button>
-          <button type="button" (click)="updateQuery()" class="btn btn-primary">
+          <button
+            type="button"
+            (click)="updatePolicy()"
+            class="btn btn-primary"
+          >
             Save changes
           </button>
         </div>

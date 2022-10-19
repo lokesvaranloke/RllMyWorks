@@ -1,7 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { ApproveService } from '../approve.service';
 import { ApproveserService } from '../approveser.service';
 import { PolicyModel } from './policy.model';
+import { PolicyModel1 } from './policy.model1';
 import { PolicyData } from './policydata.model';
 
 @Component({
@@ -11,13 +14,21 @@ import { PolicyData } from './policydata.model';
 })
 export class ApprovepolicyComponent implements OnInit {
 
+  isDisabled=true;
   backendurl="http://localhost:8080/admin";
+  public policyForm!:FormGroup;
   fetchedPolicy: PolicyData[]=[];
   policyObj: PolicyModel = new PolicyModel();
   
-  constructor(private http: HttpClient, private approveSer: ApproveserService) { }
-  public  approval = 3;
+  constructor(private http: HttpClient,private formBuilder:FormBuilder, private approveSer: ApproveService) { }
   ngOnInit(): void {
+    this.policyForm=this.formBuilder.group({
+      policyId:[''],
+      userId:[''],
+      policyType:{value:'', disabled: this.isDisabled},
+      policyNum:{value:'', disabled: this.isDisabled},
+      approval:[''],
+    })
     
     this.fetchPolicy();
   }
@@ -29,65 +40,62 @@ export class ApprovepolicyComponent implements OnInit {
     })
   }
 
-  onApprove(data:any){
-    const pid = data.policyId;
-   alert("Policy Approved");
-    pid.approval=1;
-    // this.approve="Approved";
+    onApprove(policy:any){
+      this.policyObj.policyId=policy.policyId;
+      policy.approval=1;
+      this.policyForm.controls['policyId'].setValue(policy.policyId);
+      this.policyForm.controls['userId'].setValue(policy.userId);
+      this.policyForm.controls['policyNum'].setValue(policy.policyNum);
+      this.policyForm.controls['policyType'].setValue(policy.policyType);
+      this.policyForm.controls['approval'].setValue(policy.approval);
+      console.log("Approve Status:",policy.approval);
     }
 
-    onDisapprove(){
-      alert("Policy Disapproved");
-      // this.approve="Disapproved";
+    approve(){
+      this.policyObj.userId=this.policyForm.value.userId;
+      this.policyObj.policyType=this.policyForm.value.policyType;
+      this.policyObj.policyNum=this.policyForm.value.policyNum;
+      this.policyObj.approval=1;
+
+      this.approveSer.approvePolicy(this.policyObj,this.policyObj.userId,this.policyObj.policyId)
+      .subscribe(res=>{
+        alert("User Policy Approved");
+        this.policyForm.reset();
+        this.fetchPolicy();
+      },err=>{
+        alert("Something Wrong");
+      })
     }
 
-  // onApprove(policy:any){
-  //   this.policyObj.userId=policy.userId;
-  //   this.policyObj.policyId=policy.policyId;
-  //   this.policyObj.policyNum=policy.policyNum;
-  //   this.policyObj.policyType=policy.policyType;
-  //   this.policyObj.approval=policy.approval;
-  //   console.log("Before assigning:",this.policyObj.approval);
-  //   this.policyObj.approval=1;
-  //   console.log("User Id:",this.policyObj.userId);
-  //   console.log("Policy Id:",this.policyObj.policyId);
-  //   console.log("After assigning:",this.policyObj.approval);
+    onDisapprove(policy:any){
+      this.policyObj.policyId=policy.policyId;
+      policy.approval=2;
+      this.policyForm.controls['policyId'].setValue(policy.policyId);
+      this.policyForm.controls['userId'].setValue(policy.userId);
+      this.policyForm.controls['policyNum'].setValue(policy.policyNum);
+      this.policyForm.controls['policyType'].setValue(policy.policyType);
+      this.policyForm.controls['approval'].setValue(policy.approval);
+      console.log("Disapprove Status:",policy.approval);
+      console.log("PID1",this.policyObj.policyId);
+    }
 
-  //   this.approveSer.approveStatus(this.policyObj,this.policyObj.userId,this.policyObj.policyId)
-  //   .subscribe(res=>{
-  //     alert("Status Approved");
-  //     this.fetchPolicy();
-  //   },err=>{
-  //     alert("Status Error");
-  //   })
-    // this.http.put<any>(this.backendurl+"/uid/policy/pid",uid,pid).subscribe(res=>{
-    //   alert("Policy Approved");
-    //   this.fetchPolicy();
-    //   console.log(policy);
-    // },err=>{
-    //   alert("Something went wrong");
-    // })
-  // }
+    disApprove(){
+      this.policyObj.policyId=this.policyForm.value.policyId;
+      this.policyObj.userId=this.policyForm.value.userId;
+      this.policyObj.policyType=this.policyForm.value.policyType;
+      this.policyObj.policyNum=this.policyForm.value.policyNum;
+      this.policyObj.approval=2;
+      console.log("PID1",this.policyObj.policyId);
 
-  // onDisapprove(policy:any){
-  //   this.policyObj.userId=policy.userId;
-  //   this.policyObj.policyId=policy.policyId;
-  //   this.policyObj.policyNum=policy.policyNum;
-  //   this.policyObj.policyType=policy.policyType;
-  //   this.policyObj.approval=policy.approval;
-  //   console.log("Before assigning:",this.policyObj.approval);
-  //   this.policyObj.approval=2;
-  //   console.log("User Id:",this.policyObj.userId);
-  //   console.log("Policy Id:",this.policyObj.policyId);
-  //   console.log("After assigning:",this.policyObj.approval);
-
-  //   this.approveSer.approveStatus(this.policyObj,this.policyObj.userId,this.policyObj.policyId)
-  //   .subscribe(res=>{
-  //     alert("Status Approved");
-  //     this.fetchPolicy();
-  //   },err=>{
-  //     alert("Status Error");
-  //   })
-  // }
-
+      this.approveSer.approvePolicy(this.policyObj,this.policyObj.userId,this.policyObj.policyId)
+      .subscribe(res=>{
+        alert("User Policy Disapproved");
+        this.policyForm.reset();
+        this.fetchPolicy();
+      },err=>{
+        console.log("PID1",this.policyObj.policyId);
+        alert("Something Wrong");
+        console.log("PID1",this.policyObj.policyId);
+      })
+    }
 }

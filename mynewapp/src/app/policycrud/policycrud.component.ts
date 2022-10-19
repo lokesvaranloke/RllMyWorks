@@ -34,7 +34,7 @@ export class PolicycrudComponent implements OnInit {
       userId:[''],
       policyType:[''],
       policyNum:[''],
-      approval:[''],
+      approval:{value:'', disabled: this.isDisabled},
     })
     this.fetchPolicy();
   }

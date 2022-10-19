@@ -23,6 +23,6 @@ export class AdminLoginComponent implements OnInit {
     this.login();
   }
   login() {
-    throw new Error('Method not implemented.');
+    this.route.navigate(['/viewcustomers']);
   }
 }

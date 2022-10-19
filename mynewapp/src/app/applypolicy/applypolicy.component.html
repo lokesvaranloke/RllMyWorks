@@ -2,22 +2,26 @@
   <table class="table table-striped">
     <thead class="table-dark">
       <tr>
-        <th>User Id</th>
         <th>Policy Id</th>
+        <th>User Id</th>
         <th>Policy Type</th>
+        <th>Policy Number</th>
+        <th>Approval</th>
         <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>{{ data.userId }}</td>
-        <td>{{ data.policyType }}</td>
-        <td>{{ data.policyNum }}</td>
+      <tr *ngFor="let policy of fetchedPolicy">
+        <td>{{ policy.policyId }}</td>
+        <td>{{ policy.userId }}</td>
+        <td>{{ policy.policyType }}</td>
+        <td>{{ policy.policyNum }}</td>
+        <td>{{ policy.approval }}</td>
         <td>
           <button
             class="btn btn-outline-danger"
-            type="button"
-            (click)="onApplyPolicy()"
+            type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
+            (click)="onApplyPolicy(policy)"
           >
             Apply
           </button>
@@ -26,4 +30,114 @@
     </tbody>
   </table>
 </div>
-<!-- Modal -->
+
+
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Apply Policy</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="policyForm" style="color: rgb(120, 55, 5)">
+          <div class="row mb-2">
+            <div class="form-group">
+              <label for="policyId">Policy Id</label>
+              <input
+                type="text"
+                id="policyId"
+                class="form-control"
+                name="policyId"
+                required
+                formControlName="policyId"
+                [disabled]="true"
+              />
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="form-group">
+              <label for="userId">User Id</label>
+              <input
+                type="text"
+                id="userId"
+                class="form-control"
+                name="userId"
+                required
+                formControlName="userId"
+                [disabled]="true"
+              />
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="form-group">
+              <label for="policyType">Policy Type</label>
+              <input
+                type="text"
+                id="policyType"
+                class="form-control"
+                name="policyType"
+                required
+                formControlName="policyType"
+              />
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="form-group">
+              <label for="policyNum">Policy Number</label>
+              <input
+                type="text"
+                id="policyNum"
+                class="form-control"
+                name="policyNum"
+                formControlName="policyNum"
+                required
+              />
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="form-group">
+              <label for="approval">Approval</label>
+              <input
+                type="text"
+                id="approval"
+                class="form-control"
+                name="approval"
+                required
+                formControlName="approval"
+                [disabled]="true"
+              />
+            </div>
+          </div>
+        </form>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Close
+          </button>
+          <button
+            type="button"
+            (click)="apply()"
+            class="btn btn-primary"
+          >
+            Apply
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

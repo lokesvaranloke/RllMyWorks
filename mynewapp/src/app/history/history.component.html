@@ -1,10 +1,14 @@
 <div class="container">
+  <div>
+    <h3 class="text-center">Pending State - 3 | Approved State - 1 | Disapproved State - 2</h3>
+  </div>
   <table class="table table-striped">
     <thead class="table-dark">
       <tr>
         <th>User Id</th>
         <th>Policy Id</th>
         <th>Policy Type</th>
+        <th>Approval</th>
       </tr>
     </thead>
     <tbody>
@@ -12,6 +16,7 @@
         <td>{{ d.userId }}</td>
         <td>{{ d.policyType }}</td>
         <td>{{ d.policyNum }}</td>
+        <td>{{ d.approval }}</td>
       </tr>
     </tbody>
   </table>

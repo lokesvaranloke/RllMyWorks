@@ -11,14 +11,14 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let d of data">
-                <td>{{d.userId}}</td> 
-                <td>{{d.name}}</td>
-                <td>{{d.email}}</td> 
-                <td>{{d.phoneNum}}</td>
-                <td>{{d.address}}</td>
-                <td>{{d.policyNum}}</td> 
-            </tr>
+            <tr *ngFor="let customer of fetchedCustomer">
+                <td>{{ customer.userId }}</td>
+                <td>{{ customer.name }}</td>
+                <td>{{ customer.email }}</td>
+                <td>{{ customer.phoneNum }}</td>
+                <td>{{ customer.address }}</td>
+                <td>{{ customer.policyNum }}</td>
+              </tr>
         </tbody>
     </table>
 </div>
