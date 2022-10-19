@@ -23,6 +23,6 @@ export class AdminLoginComponent implements OnInit {
     this.login();
   }
   login() {
-    this.route.navigate(['/viewcustomers']);
+    this.route.navigate(['/viewallcustomers']);
   }
 }
