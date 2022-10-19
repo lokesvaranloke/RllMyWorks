@@ -14,7 +14,7 @@ label {
     letter-spacing: 0.2em;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight: bolder;
-    width: 80%;
+    width: 100%;
     margin-left: 3px;
 }
 .help-block.with-errors {
