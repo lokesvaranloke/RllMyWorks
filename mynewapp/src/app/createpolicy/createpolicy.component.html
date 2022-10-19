@@ -7,23 +7,11 @@
     </div>
     <div class="row">
       <div class="col">
-        <label for="user_id" class="form-label"></label>
-        <input
-          type="text"
-          class="form-control"
-          id="user_id"
-          placeholder="User Id"
-          formControlName="userId"
-        />
-      </div>
-    </div>
-    <div class="row">
-      <div class="col">
-        <label for="policy_type" class="form-label"></label>
+        <label for="policyType" class="form-label"></label>
         <textarea
           type="text"
           class="form-control"
-          id="policy_type"
+          id="policyType"
           placeholder="Policy Type"
           formControlName="policyType"
         ></textarea>
@@ -31,8 +19,8 @@
           style="color: red"
           class="small"
           *ngIf="
-            !createPolicyForm.get('policy_type').valid &&
-            createPolicyForm.get('policy_type').touched
+            !createPolicyForm.get('policyType').valid &&
+            createPolicyForm.get('policyType').touched
           "
           ><small>*Please enter a valid policy type</small></span
         >
@@ -40,11 +28,11 @@
     </div>
     <div class="row">
       <div class="col">
-        <label for="policy_num" class="form-label"></label>
+        <label for="policyNum" class="form-label"></label>
         <input
           type="text"
           class="form-control"
-          id="policy_num"
+          id="policyNum"
           placeholder="Policynumber"
           formControlName="policyNum"
           [disabled]="true"
@@ -53,8 +41,8 @@
           style="color: red"
           class="small"
           *ngIf="
-            !createPolicyForm.get('policy_num').valid &&
-            createPolicyForm.get('policy_num').touched
+            !createPolicyForm.get('policyNum').valid &&
+            createPolicyForm.get('policyNum').touched
           "
           ><small>*Please enter a 10 digit policy number</small></span
         >

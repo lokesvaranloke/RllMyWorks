@@ -19,11 +19,13 @@ import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { SendqueryComponent } from './sendquery/sendquery.component';
 import { ViewqueriesComponent } from './viewqueries/viewqueries.component';
 import { ApprovepolicyComponent } from './approvepolicy/approvepolicy.component';
+import { ViewcustomersComponent } from './viewcustomers/viewcustomers.component';
+import { CommonModule } from '@angular/common';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent },
-  {path: 'applypolicy', component: ApplypolicyComponent},
-  {path: 'history', component: HistoryComponent},
+  {path: 'applypolicy/:userId', component: ApplypolicyComponent},
+  {path: 'history/:userId', component: HistoryComponent},
   {path: 'policycrud', component: PolicycrudComponent},
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignupComponent},
@@ -34,9 +36,10 @@ const appRoutes: Routes = [
   {path: 'createpolicy', component: CreatepolicyComponent},
   {path:'admin-login', component:AdminLoginComponent},
   {path: 'updateprofile', component:UserdashboardComponent},
-  {path: 'sendquery', component:SendqueryComponent},
+  {path: 'sendquery/:userId', component:SendqueryComponent},
   {path:'viewqueries', component:ViewqueriesComponent},
   {path:'approvepolicy', component:ApprovepolicyComponent},
+  {path:'viewcustomers', component:ViewcustomersComponent},
 ]
 
 @NgModule({
@@ -62,6 +65,7 @@ const appRoutes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    CommonModule,
   ],
   
   providers: [],

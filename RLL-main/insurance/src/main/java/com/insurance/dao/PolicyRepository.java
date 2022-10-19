@@ -21,4 +21,7 @@ public interface PolicyRepository extends JpaRepository<Policy, Integer>{
 	@Query(value = "SELECT * FROM Policy WHERE user_id = 0", nativeQuery = true)
     public List<Policy> findAvailPolicy();
 	
+	@Query(value = "SELECT * FROM Policy WHERE approval = 3", nativeQuery = true)
+	public List<Policy> findPolicyByApproval();
+	
 }

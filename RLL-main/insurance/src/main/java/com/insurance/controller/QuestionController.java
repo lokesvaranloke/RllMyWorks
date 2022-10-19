@@ -4,6 +4,7 @@ import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,13 +22,15 @@ public class QuestionController {
 	QuestionRepository questionRepo;
 	
 	// user can ask query
-	@PostMapping("/user/question")
+	@CrossOrigin(value = "http://localhost:4200/")
+	@PostMapping("/user/question/{id}")
 	public Question askQuestion(@RequestBody Question question) {
 		return questionRepo.save(question);
 		
 	}
 	
 	// Admin can list all queries
+	@CrossOrigin(value = "http://localhost:4200/")
 	@GetMapping("/admin/question")
 	public List<Question> listQuestions(){
 		return questionRepo.findAll();
@@ -35,6 +38,7 @@ public class QuestionController {
 	}
 	
 	// Admin Answer 
+	@CrossOrigin(value = "http://localhost:4200/")
 	@PutMapping("/admin/question/{qid}")
 	public ResponseEntity<Question> answerQuestion(@PathVariable int qid, @RequestBody Question question) {
 		Optional<Question> optQ = questionRepo.findById(qid);

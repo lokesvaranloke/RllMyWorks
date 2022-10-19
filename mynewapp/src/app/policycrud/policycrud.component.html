@@ -1,45 +1,33 @@
-<!-- <a class="btn btn-primary" routerLink="/useraccount/{id}">View Profile</a> -->
 <div class="container">
   <table class="table table-striped">
     <thead class="table-dark">
       <tr>
+        <th>Policy Id</th>
         <th>User Id</th>
         <th>Policy Type</th>
         <th>Policy Number</th>
         <th>Approval</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>{{ data.userId }}</td>
-        <td>{{ data.policyType }}</td>
-        <td>{{ data.policyNum }}</td>
-        <td>{{ data.approval }}</td>
+      <tr *ngFor="let policy of fetchedPolicy">
+        <td>{{ policy.policyId }}</td>
+        <td>{{ policy.userId }}</td>
+        <td>{{ policy.policyType }}</td>
+        <td>{{ policy.policyNum }}</td>
+        <td>{{ policy.approval }}</td>
         <td>
-          <button
-            class="btn btn-outline-warning"
-            type="button"
-            data-bs-toggle="modal"
-            data-bs-target="#exampleModal"
-            (click)="onEdit(data)"
-          >
-            Update</button
-          >&nbsp;&nbsp;&nbsp;
-          <button
-            class="btn btn-outline-danger"
-            type="button"
-            (click)="onDeletePolicy(data.policy_id)"
-          >
-            Delete
-          </button>
-        </td>
+          <button class="btn btn-outline-warning" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="onEdit(policy)" >Update</button>&nbsp;&nbsp;&nbsp; 
+          <button class="btn btn-outline-danger" type="button" (click)="onDeletePolicy(policy.policyId)">Delete</button> 
+      </td>
       </tr>
     </tbody>
   </table>
 </div>
 <!-- Modal -->
 <div
-  class="btn-primary"
+  class="modal fade"
   id="exampleModal"
   tabindex="-1"
   aria-labelledby="exampleModalLabel"
@@ -60,6 +48,20 @@
         <form [formGroup]="policyForm" style="color: rgb(120, 55, 5)">
           <div class="row mb-2">
             <div class="form-group">
+              <label for="policyId">Policy Id</label>
+              <input
+                type="text"
+                id="policyId"
+                class="form-control"
+                name="policyId"
+                required
+                formControlName="policyId"
+                [disabled]="true"
+              />
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="form-group">
               <label for="userId">User Id</label>
               <input
                 type="text"
@@ -74,6 +76,19 @@
           </div>
           <div class="row mb-2">
             <div class="form-group">
+              <label for="policyType">Policy Type</label>
+              <input
+                type="text"
+                id="policyType"
+                class="form-control"
+                name="policyType"
+                required
+                formControlName="policyType"
+              />
+            </div>
+          </div>
+          <div class="row mb-2">
+            <div class="form-group">
               <label for="policyNum">Policy Number</label>
               <input
                 type="text"
@@ -83,19 +98,6 @@
                 formControlName="policyNum"
                 required
               />
-            </div>
-          </div>
-          <div class="row mb-2">
-            <div class="form-group">
-              <label for="policyType">Policy Type</label>
-              <textarea
-                type="text"
-                id="policyType"
-                class="form-control"
-                name="policyType"
-                required
-                formControlName="policyType"
-              ></textarea>
             </div>
           </div>
           <div class="row mb-2">

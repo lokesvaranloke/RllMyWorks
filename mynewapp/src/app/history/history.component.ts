@@ -13,50 +13,28 @@ import { PolicyDataModel } from '../policycrud/policydata.model';
 })
 export class HistoryComponent implements OnInit {
   
-  isDisabled=true;
-  policyModelObj: PolicyDataModel = new PolicyDataModel();
 
-  backendurl="http://localhost:8080/insurance/policy";
-
-  // backendurl="http://localhost:8000/user";
+  backendurl="http://localhost:8080/user/history";
   
-  private routeSub: Subscription;
-  public loginForm!:FormGroup;
-
-  data: any;
+  data:any;
+  routeSub: Subscription;
   userId: any;
-  policyId:any;
-  policyType: any;
-  policyNum: any;
-  approval:any;
-  userModelObj: any;
-  policyForm: any;
   
-  constructor(private route: Router,private actroute:ActivatedRoute,private formBuilder:FormBuilder, private http: HttpClient, private api:ApiService) { }
+  constructor(private route: Router,private actroute: ActivatedRoute,private formBuilder:FormBuilder, private http: HttpClient, private api:ApiService) { }
 
   ngOnInit(): void {
     this.routeSub=this.actroute.params.subscribe(params=>{
-      this.policyId = this.actroute.snapshot.params['policyId'];
-      this.fetchPolicyById(this.policyId);
-      console.log(this.policyId);
+      this.userId = this.actroute.snapshot.params['userId'];
+      this.fetchHistory(this.userId);
+      console.log(this.userId);
     })
+    
   }
 
-  fetchPolicyById(policyId:any){
-    this.http.get(this.backendurl+"/"+this.policyId).subscribe(res=>{
+  fetchHistory(userId:any){
+    this.http.get<any>(this.backendurl+"/"+userId).subscribe((res)=>{
       this.data=res;
       console.log(this.data);
     })
-  }
-
-  onEdit(data:any){
-    this.userModelObj.userId=this.data.userId;
-    this.userModelObj.policyNum=this.data.policyNum;
-    this.policyForm.controls['userId'].setValue(data.userId);
-    this.policyForm.controls['policyId'].setValue(data.policyId);
-    this.policyForm.controls['policyNum'].setValue(data.policyNum);
-    this.policyForm.controls['policyType'].setValue(data.policyType);
-    this.policyForm.controls['approval'].setValue(data.approval);
-    
   }
 }

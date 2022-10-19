@@ -3,7 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { PolicyService } from '../policy.service';
 import { ApiService } from '../services/api.service';
+import { PolicyCrudData } from './policycrud.model';
 import { PolicyDataModel } from './policydata.model';
 
 @Component({
@@ -15,70 +17,67 @@ export class PolicycrudComponent implements OnInit {
 
   isDisabled=true;
   policyModelObj: PolicyDataModel = new PolicyDataModel();
-
-  backendurl="http://localhost:8080/insurance/policy";
-
-  // backendurl="http://localhost:8000/user";
+  public policyForm!:FormGroup;
+  fetchedPolicy: PolicyCrudData[]=[];
+  backendurl="http://localhost:8080/admin/policy";
   
   private routeSub: Subscription;
-  public loginForm!:FormGroup;
+  
 
   data: any;
-  userId: any;
-  policyId:any;
-  policyType: any;
-  policyNum: any;
-  approval:any;
-  userModelObj: any;
-  policyForm: any;
   
-  constructor(private route: Router,private actroute:ActivatedRoute,private formBuilder:FormBuilder, private http: HttpClient, private api:ApiService) { }
+  constructor(private route: Router,private actroute:ActivatedRoute,private formBuilder:FormBuilder, private http: HttpClient, private policySer: PolicyService) { }
 
   ngOnInit(): void {
-    this.routeSub=this.actroute.params.subscribe(params=>{
-      this.policyId = this.actroute.snapshot.params['policyId'];
-      this.fetchPolicyById(this.policyId);
-      console.log(this.policyId);
+    this.policyForm=this.formBuilder.group({
+      policyId:{value:'', disabled: this.isDisabled},
+      userId:[''],
+      policyType:[''],
+      policyNum:[''],
+      approval:[''],
+    })
+    this.fetchPolicy();
+  }
+
+  fetchPolicy() {
+    this.http.get<any>(this.backendurl).subscribe((result:any)=>{
+      this.fetchedPolicy=result;
+      console.log("Policies:",this.fetchedPolicy);
     })
   }
 
-  fetchPolicyById(policyId:any){
-    this.http.get(this.backendurl+"/"+this.policyId).subscribe(res=>{
-      this.data=res;
-      console.log(this.data);
-    })
-  }
-
-  onEdit(data:any){
-    this.userModelObj.userId=this.data.userId;
-    this.userModelObj.policyNum=this.data.policyNum;
-    this.policyForm.controls['userId'].setValue(data.userId);
-    this.policyForm.controls['policyId'].setValue(data.policyId);
-    this.policyForm.controls['policyNum'].setValue(data.policyNum);
-    this.policyForm.controls['policyType'].setValue(data.policyType);
-    this.policyForm.controls['approval'].setValue(data.approval);
-    
+  onEdit(policy:any){
+    this.policyModelObj.policyId=policy.policyId;
+    this.policyForm.controls['policyId'].setValue(policy.policyId);
+    this.policyForm.controls['userId'].setValue(policy.userId);
+    this.policyForm.controls['policyNum'].setValue(policy.policyNum);
+    this.policyForm.controls['policyType'].setValue(policy.policyType);
+    this.policyForm.controls['approval'].setValue(policy.approval);
   }
 
   updatePolicy(){
     this.policyModelObj.userId=this.policyForm.value.userId;
-    this.policyModelObj.approval=this.policyForm.value.approval;
     this.policyModelObj.policyType=this.policyForm.value.policyType;
     this.policyModelObj.policyNum=this.policyForm.value.policyNum;
-    this.api.updatePolicy(this.policyModelObj, this.policyModelObj.policyId)
-    .subscribe(()=>{
-      alert("Policy Update Success");
+    this.policyModelObj.approval=this.policyForm.value.approval;
+
+    this.policySer.updatePolicy(this.policyModelObj,this.policyModelObj.policyId)
+    .subscribe(res=>{
+      alert("Policy Updated Successfully");
       this.policyForm.reset();
-      this.fetchPolicyById(this.policyId);
-    },()=>{
-      alert("Something Went Wrong...")
+      this.fetchPolicy();
+    },err=>{
+      alert("Something Wrong");
     })
   }
 
   onDeletePolicy(policyId: number){
-    this.http.delete(this.backendurl+"/"+this.policyId).subscribe(res=>{
+    this.http.delete(this.backendurl+"/"+policyId).subscribe(res=>{
       alert("Policy Deleted...Saving data..");
-      this.route.navigate(['createpolicy']);
+      this.fetchPolicy();
+      // this.route.navigate(['createpolicy']);
+    },err=>{
+      alert("Something Wrong or User is assigned to this");
     })
   }
 }

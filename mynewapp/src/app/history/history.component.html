@@ -1,4 +1,3 @@
-<!-- <a class="btn btn-primary" routerLink="/useraccount/{id}">View Profile</a> -->
 <div class="container">
   <table class="table table-striped">
     <thead class="table-dark">
@@ -9,12 +8,12 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>{{ data.userId }}</td>
-        <td>{{ data.policyType }}</td>
-        <td>{{ data.policyNum }}</td>
+      <tr *ngFor="let d of data">
+        <td>{{ d.userId }}</td>
+        <td>{{ d.policyType }}</td>
+        <td>{{ d.policyNum }}</td>
       </tr>
     </tbody>
   </table>
 </div>
-<!-- Modal -->
+

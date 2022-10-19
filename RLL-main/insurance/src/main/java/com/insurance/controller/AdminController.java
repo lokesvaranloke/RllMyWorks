@@ -2,6 +2,7 @@ package com.insurance.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletResponse;
@@ -39,18 +41,21 @@ public class AdminController {
 
 	// ADMIN: Read all users
 	// ADMIN : List all Policies
+	@CrossOrigin(value = "http://localhost:4200/")
 	@RequestMapping(value = "/admin/user", method = RequestMethod.GET)
 	public Iterable<User> ListUser() {
 		return userRepo.findAll();
 	}
 
 	// ADMIN : Create Policy
+	@CrossOrigin(value = "http://localhost:4200/")
 	@RequestMapping(value = "/admin/policy", method = RequestMethod.POST)
 	public Policy createPolicy(@RequestBody Policy policy) {
 		return policyRepo.save(policy);
 	}
 
 	// ADMIN : Update Policy
+	@CrossOrigin(value = "http://localhost:4200/")
 	@RequestMapping(value = "/admin/policy/{id}", method = RequestMethod.PUT)
 	public ResponseEntity<Policy> updatePolicy(@PathVariable("id") Integer id, @RequestBody Policy policy) {
 		Optional<Policy> optP = policyRepo.findById(id);
@@ -68,12 +73,14 @@ public class AdminController {
 	}
 
 	// ADMIN : List all Policies
+	@CrossOrigin(value = "http://localhost:4200/")
 	@RequestMapping(value = "/admin/policy", method = RequestMethod.GET)
-	public Iterable<Policy> ListPolicy() {
+	public List<Policy> ListPolicy() {
 		return policyRepo.findAll();
 	}
 
 	// ADMIN : List Policy by ID
+	@CrossOrigin(value = "http://localhost:4200/")
 	@RequestMapping(value = "/admin/policy/{id}", method = RequestMethod.GET)
 	public Policy getPolicyById(@PathVariable("id") Integer id) {
 		Optional<Policy> optP = policyRepo.findById(id);
@@ -84,8 +91,9 @@ public class AdminController {
 	}
 
 	// ADMIN : Delete a Policy
+	@CrossOrigin(value = "http://localhost:4200/")
 	@RequestMapping(value = "/admin/policy/{id}", method = RequestMethod.DELETE)
-	public String deletePolicy(@PathVariable("id") Integer id) {
+	public void deletePolicy(@PathVariable("id") Integer id) {
 		Optional<Policy> optP = policyRepo.findById(id);
 		if (optP.isEmpty()) {
 			throw new PolicyNotFoundException();
@@ -96,14 +104,11 @@ public class AdminController {
 		// delete the Policy if not in use
 		if (p.getUserId() == 0) {
 			policyRepo.deleteById(id);
-
-			return "Policy Deleted.";
-		} else {
-			return "Policy in use, cannot be deleted.";
 		}
 	}
 
 	// ADMIN : Approve Policy
+	@CrossOrigin(value = "http://localhost:4200/")
 	@RequestMapping(value = "/admin/{uid}/policy/{pid}", method = RequestMethod.PUT)
 	public ResponseEntity<Policy> applyPolicy(@PathVariable("uid") Integer uid, @PathVariable("pid") Integer pid,
 			@RequestBody Policy policy) {
@@ -134,6 +139,12 @@ public class AdminController {
 		final Policy updatedPolicy = policyRepo.save(p);
 		return ResponseEntity.ok(updatedPolicy);
 
+	}
+	
+	@CrossOrigin(value = "http://localhost:4200/")
+	@GetMapping(value = "/admin/policy/approval")
+	public List<Policy> getPolicyByApproval() {
+		return policyRepo.findPolicyByApproval();
 	}
 
 }

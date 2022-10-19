@@ -16,7 +16,7 @@ export class ApprovepolicyComponent implements OnInit {
   policyObj: PolicyModel = new PolicyModel();
   
   constructor(private http: HttpClient, private approveSer: ApproveserService) { }
-  public  approve = "Pending";
+  public  approval = 3;
   ngOnInit(): void {
     
     this.fetchPolicy();
@@ -29,35 +29,37 @@ export class ApprovepolicyComponent implements OnInit {
     })
   }
 
-  // onApprove(){
-  //  alert("Policy Approved");
-  //   this.approve="Approved";
-  //   }
+  onApprove(data:any){
+    const pid = data.policyId;
+   alert("Policy Approved");
+    pid.approval=1;
+    // this.approve="Approved";
+    }
 
-  //   onDisapprove(){
-  //     alert("Policy Disapproved");
-  //     this.approve="Disapproved";
-  //   }
+    onDisapprove(){
+      alert("Policy Disapproved");
+      // this.approve="Disapproved";
+    }
 
-  onApprove(policy:any){
-    this.policyObj.userId=policy.userId;
-    this.policyObj.policyId=policy.policyId;
-    this.policyObj.policyNum=policy.policyNum;
-    this.policyObj.policyType=policy.policyType;
-    this.policyObj.approval=policy.approval;
-    console.log("Before assigning:",this.policyObj.approval);
-    this.policyObj.approval=1;
-    console.log("User Id:",this.policyObj.userId);
-    console.log("Policy Id:",this.policyObj.policyId);
-    console.log("After assigning:",this.policyObj.approval);
+  // onApprove(policy:any){
+  //   this.policyObj.userId=policy.userId;
+  //   this.policyObj.policyId=policy.policyId;
+  //   this.policyObj.policyNum=policy.policyNum;
+  //   this.policyObj.policyType=policy.policyType;
+  //   this.policyObj.approval=policy.approval;
+  //   console.log("Before assigning:",this.policyObj.approval);
+  //   this.policyObj.approval=1;
+  //   console.log("User Id:",this.policyObj.userId);
+  //   console.log("Policy Id:",this.policyObj.policyId);
+  //   console.log("After assigning:",this.policyObj.approval);
 
-    this.approveSer.approveStatus(this.policyObj,this.policyObj.userId,this.policyObj.policyId)
-    .subscribe(res=>{
-      alert("Status Approved");
-      this.fetchPolicy();
-    },err=>{
-      alert("Status Error");
-    })
+  //   this.approveSer.approveStatus(this.policyObj,this.policyObj.userId,this.policyObj.policyId)
+  //   .subscribe(res=>{
+  //     alert("Status Approved");
+  //     this.fetchPolicy();
+  //   },err=>{
+  //     alert("Status Error");
+  //   })
     // this.http.put<any>(this.backendurl+"/uid/policy/pid",uid,pid).subscribe(res=>{
     //   alert("Policy Approved");
     //   this.fetchPolicy();
@@ -65,27 +67,27 @@ export class ApprovepolicyComponent implements OnInit {
     // },err=>{
     //   alert("Something went wrong");
     // })
-  }
+  // }
 
-  onDisapprove(policy:any){
-    this.policyObj.userId=policy.userId;
-    this.policyObj.policyId=policy.policyId;
-    this.policyObj.policyNum=policy.policyNum;
-    this.policyObj.policyType=policy.policyType;
-    this.policyObj.approval=policy.approval;
-    console.log("Before assigning:",this.policyObj.approval);
-    this.policyObj.approval=2;
-    console.log("User Id:",this.policyObj.userId);
-    console.log("Policy Id:",this.policyObj.policyId);
-    console.log("After assigning:",this.policyObj.approval);
+  // onDisapprove(policy:any){
+  //   this.policyObj.userId=policy.userId;
+  //   this.policyObj.policyId=policy.policyId;
+  //   this.policyObj.policyNum=policy.policyNum;
+  //   this.policyObj.policyType=policy.policyType;
+  //   this.policyObj.approval=policy.approval;
+  //   console.log("Before assigning:",this.policyObj.approval);
+  //   this.policyObj.approval=2;
+  //   console.log("User Id:",this.policyObj.userId);
+  //   console.log("Policy Id:",this.policyObj.policyId);
+  //   console.log("After assigning:",this.policyObj.approval);
 
-    this.approveSer.approveStatus(this.policyObj,this.policyObj.userId,this.policyObj.policyId)
-    .subscribe(res=>{
-      alert("Status Approved");
-      this.fetchPolicy();
-    },err=>{
-      alert("Status Error");
-    })
-  }
+  //   this.approveSer.approveStatus(this.policyObj,this.policyObj.userId,this.policyObj.policyId)
+  //   .subscribe(res=>{
+  //     alert("Status Approved");
+  //     this.fetchPolicy();
+  //   },err=>{
+  //     alert("Status Error");
+  //   })
+  // }
 
 }

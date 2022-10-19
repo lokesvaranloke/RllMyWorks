@@ -16,14 +16,14 @@
                 <td>{{policy.policyType}}</td>
                 <td>{{policy.policyNum}}</td> 
                 <td>{{policy.userId}}</td>
-                <td>{{policy.approval}}</td>
-                <!-- <td [ngModel]>{{approve}}</td> -->
+                <!-- <td>{{policy.approval}}</td> -->
+                <td [ngModel]>{{approval}}</td>
                 <td>
-                    <button type="button" class="btn btn-outline-info" (click)="onApprove(policy)" >Approve</button>
-                    <button type="button" class="btn btn-outline-warning" (click)="onDisapprove(policy)">Disapprove</button>
+                    <!-- <button type="button" class="btn btn-outline-info" (click)="onApprove(policy)" >Approve</button>
+                    <button type="button" class="btn btn-outline-warning" (click)="onDisapprove(policy)">Disapprove</button> -->
 
-                    <!-- <button type="button" class="btn btn-outline-info" (click)="onApprove()" >Approve</button>
-                    <button type="button" class="btn btn-outline-warning" (click)="onDisapprove()">Disapprove</button> -->
+                    <button type="button" class="btn btn-outline-info" (click)="onApprove(policy)" >Approve</button>
+                    <button type="button" class="btn btn-outline-warning" (click)="onDisapprove()">Disapprove</button>
                 </td>
             </tr>
         </tbody>

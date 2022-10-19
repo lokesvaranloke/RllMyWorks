@@ -16,13 +16,10 @@ export class CreatepolicyComponent implements OnInit {
 
   backendurl="http://localhost:8080/admin/policy";
 
-  // backendurl="http://localhost:8000/user";
-
   ngOnInit(): void {
     this.createPolicyForm=this.formBuilder.group({
-      userId:['', Validators.required],
       policyNum:['',Validators.required],
-      policyType:['',[Validators.required]],
+      policyType:['',Validators.required],
       approval:['',Validators.required],
     })
   }
