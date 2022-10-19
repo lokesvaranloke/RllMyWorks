@@ -1,0 +1,20 @@
+<div class="container">
+    <table class="table table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>User Id</th>
+                <th>Query Id</th>
+                <th>Query</th>
+                <th>Answer</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let q of fetchedQuery">
+                <td>{{q.userId}}</td>
+                <td>{{q.queryId}}</td>
+                <td>{{q.query}}</td>
+                <td>{{q.answer}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

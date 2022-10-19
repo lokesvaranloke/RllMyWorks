@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.insurance.dao.QuestionRepository;
+import com.insurance.dao.UserRepository;
+import com.insurance.entity.Policy;
 import com.insurance.entity.Question;
 
 @RestController
@@ -20,6 +22,9 @@ public class QuestionController {
 	
 	@Autowired
 	QuestionRepository questionRepo;
+	
+	@Autowired
+	UserRepository userRepo;
 	
 	// user can ask query
 	@CrossOrigin(value = "http://localhost:4200/")
@@ -36,6 +41,13 @@ public class QuestionController {
 		return questionRepo.findAll();
 		
 	}
+	
+	// User can list his queries
+		@CrossOrigin(value = "http://localhost:4200/")
+		@GetMapping("/user/question/{uid}")
+		public List<Question> listQuestionById(@PathVariable int uid) {
+			return questionRepo.findQuesByUserId(uid);
+		}
 	
 	// Admin Answer 
 	@CrossOrigin(value = "http://localhost:4200/")

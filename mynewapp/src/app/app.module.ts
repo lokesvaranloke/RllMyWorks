@@ -19,8 +19,9 @@ import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { SendqueryComponent } from './sendquery/sendquery.component';
 import { ViewqueriesComponent } from './viewqueries/viewqueries.component';
 import { ApprovepolicyComponent } from './approvepolicy/approvepolicy.component';
-import { ViewcustomersComponent } from './viewcustomers/viewcustomers.component';
 import { CommonModule } from '@angular/common';
+import { ViewallcustomersComponent } from './viewallcustomers/viewallcustomers.component';
+import { ViewqueryComponent } from './viewquery/viewquery.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent },
@@ -39,7 +40,8 @@ const appRoutes: Routes = [
   {path: 'sendquery/:userId', component:SendqueryComponent},
   {path:'viewqueries', component:ViewqueriesComponent},
   {path:'approvepolicy', component:ApprovepolicyComponent},
-  {path:'viewcustomers', component:ViewcustomersComponent},
+  {path:'viewallcustomers', component:ViewallcustomersComponent},
+  {path: 'viewquery/:userId', component:ViewqueryComponent},
 ]
 
 @NgModule({
@@ -58,6 +60,8 @@ const appRoutes: Routes = [
     SendqueryComponent,
     ViewqueriesComponent,
     ApprovepolicyComponent,
+    ViewallcustomersComponent,
+    ViewqueryComponent,
   ],
   imports: [
     BrowserModule,

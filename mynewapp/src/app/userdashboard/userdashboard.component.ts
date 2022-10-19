@@ -46,4 +46,8 @@ export class UserdashboardComponent implements OnInit {
   sendQuery(){
     this.route.navigate(['/sendquery',this.userId]);
   }
+
+  viewQuery(){
+    this.route.navigate(['/viewquery',this.userId]);
+  }
 }
